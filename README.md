@@ -137,9 +137,6 @@ posterior 1.6.x
 @article{katz2026directional,
   author  = {Katz, Harrison},
   title   = {Directional-Shift {Dirichlet} {ARMA} Models for Compositional
-             Time Series with Structural Break Intervention},
-  journal = {International Journal of Forecasting},
-  year    = {2026},
-  note    = {Forthcoming}
+             Time Series with Structural Break Intervention}
 }
 ```
