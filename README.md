@@ -106,18 +106,7 @@ The simulation uses tighter priors because the true parameter values are
 known and lie within the prior support. The empirical priors are wider to
 accommodate uncertainty in applied settings.
 
----
 
-## Empirical Applications
-
-The two empirical applications (lead-time distributions and stay-length
-compositions) use proprietary Airbnb booking data and cannot be shared
-publicly. The Stan models and R wrappers used for those applications follow
-the same interface as `simulation_study.R`; the data preparation and model
-fitting code is available on reasonable request to the corresponding author
-subject to an NDA.
-
----
 
 ## Session Info
 
