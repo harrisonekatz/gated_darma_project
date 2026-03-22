@@ -3,8 +3,7 @@
 Replication code for:
 
 > Katz, H. (2026). Directional-Shift Dirichlet ARMA Models for Compositional
-> Time Series with Structural Break Intervention. *International Journal of
-> Forecasting* (forthcoming).
+> Time Series with Structural Break Intervention.
 
 ---
 
