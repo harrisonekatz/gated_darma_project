@@ -91,21 +91,6 @@ minutes. Output written to `output/timing_benchmark.csv` (Table 4 in paper).
 
 ---
 
-## Prior Specification
-
-Two prior sets are used; they differ only for the intervention speed and
-location parameters:
-
-| Parameter | Empirical application | Simulation study |
-|-----------|----------------------|-----------------|
-| tau | N(ell + 2, 4^2) | N(ell + 2, 3^2) |
-| kappa | LogNormal(-0.5, 1^2) | LogNormal(0, 0.5^2) |
-| All others | As in Appendix C | Same |
-
-The simulation uses tighter priors because the true parameter values are
-known and lie within the prior support. The empirical priors are wider to
-accommodate uncertainty in applied settings.
-
 
 
 ## Session Info
