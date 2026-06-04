@@ -495,7 +495,7 @@ summarize_main_simulation <- function(sim_results, direction_threshold = 0.5) {
         .groups = "drop"
       ) %>%
       mutate(subset = paste0("Delta_true=", Delta_true)) %>%
-      select(subset, n, mean_signed_Delta_bias),
+      dplyr::select(subset, n, mean_signed_Delta_bias),
     sim_results %>%
       filter(!direction_success) %>%
       summarise(

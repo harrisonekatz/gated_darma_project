@@ -98,8 +98,8 @@ parameters {
   vector[D]         b;
   matrix[D, N_beta] B;
 
-  array[P] vector[D] A_diag;
-  array[Q] vector[D] Theta_diag;
+  array[P] vector<lower=-0.99, upper=0.99>[D] A_diag;
+  array[Q] vector<lower=-0.99, upper=0.99>[D] Theta_diag;
 
   vector[N_phi] gamma_phi;
   real          delta_phi;
@@ -179,15 +179,15 @@ transformed parameters {
 }
 
 model {
-  b            ~ student_t(3, 0, sigma_b);
+  b            ~ normal(0, sigma_b);                       // Appendix C: N(0, 2.5^2)
   to_vector(B) ~ normal(0, sigma_beta);
 
-  for (p in 1:P) A_diag[p]     ~ normal(0, 0.5 / sqrt(p));
-  for (q in 1:Q) Theta_diag[q] ~ normal(0, 0.3 / sqrt(q));
+  // AR/MA diagonal coefficients: Uniform(-0.99, 0.99) via the parameter bounds above
+  // (matches Appendix C / Section 4). Implicit flat prior over the bounded support.
 
   gamma_phi[1] ~ normal(4, 2);
-  if (N_phi > 1) gamma_phi[2:N_phi] ~ normal(0, 0.5);
-  delta_phi    ~ normal(0, 0.2);
+  if (N_phi > 1) gamma_phi[2:N_phi] ~ normal(0, 1);   // Appendix C: gamma ~ N(0, 1)
+  delta_phi    ~ normal(0, 0.5);                           // Section 5.1: N(0, 0.5^2)
 
   if (has_launch) {
     Delta_raw   ~ normal(0, sigma_Delta);

@@ -99,8 +99,8 @@ parameters {
   matrix[D, N_beta] B;
 
   // Full D×D AR/MA matrices (replaces diagonal vectors)
-  array[P] matrix[D, D] A_mat;
-  array[Q] matrix[D, D] Theta_mat;
+  array[P] matrix<lower=-0.99, upper=0.99>[D, D] A_mat;
+  array[Q] matrix<lower=-0.99, upper=0.99>[D, D] Theta_mat;
 
   vector[N_phi] gamma_phi;
   real          delta_phi;
@@ -182,16 +182,15 @@ transformed parameters {
 }
 
 model {
-  b            ~ student_t(3, 0, sigma_b);
+  b            ~ normal(0, sigma_b);                       // Appendix C: N(0, 2.5^2)
   to_vector(B) ~ normal(0, sigma_beta);
 
   // Full matrix priors: flatten each matrix, lag-decay on SD
-  for (p in 1:P) to_vector(A_mat[p])     ~ normal(0, 0.5 / sqrt(p));
-  for (q in 1:Q) to_vector(Theta_mat[q]) ~ normal(0, 0.3 / sqrt(q));
+  // AR/MA matrix coefficients: element-wise Uniform(-0.99, 0.99) via the bounds above.
 
   gamma_phi[1] ~ normal(4, 2);
-  if (N_phi > 1) gamma_phi[2:N_phi] ~ normal(0, 0.5);
-  delta_phi    ~ normal(0, 0.2);
+  if (N_phi > 1) gamma_phi[2:N_phi] ~ normal(0, 1);   // Appendix C: gamma ~ N(0, 1)
+  delta_phi    ~ normal(0, 0.5);                           // Section 5.1: N(0, 0.5^2)
 
   if (has_launch) {
     Delta_raw   ~ normal(0, sigma_Delta);
