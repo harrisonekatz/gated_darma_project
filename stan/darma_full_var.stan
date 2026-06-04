@@ -182,15 +182,15 @@ transformed parameters {
 }
 
 model {
-  b            ~ normal(0, sigma_b);                       // Appendix C: N(0, 2.5^2)
+  b            ~ normal(0, sigma_b);
   to_vector(B) ~ normal(0, sigma_beta);
 
   // Full matrix priors: flatten each matrix, lag-decay on SD
   // AR/MA matrix coefficients: element-wise Uniform(-0.99, 0.99) via the bounds above.
 
-  gamma_phi[1] ~ normal(4, 2);
-  if (N_phi > 1) gamma_phi[2:N_phi] ~ normal(0, 1);   // Appendix C: gamma ~ N(0, 1)
-  delta_phi    ~ normal(0, 0.5);                           // Section 5.1: N(0, 0.5^2)
+  gamma_phi[1] ~ normal(4, 2);                             // concentration intercept; matches darma_diagonal.stan
+  if (N_phi > 1) gamma_phi[2:N_phi] ~ normal(0, 1);        // Table 14: gamma ~ N(0, 1)
+  delta_phi    ~ normal(0, 0.5);                            // Section 5.1 / Table 14: N(0, 0.5^2)
 
   if (has_launch) {
     Delta_raw   ~ normal(0, sigma_Delta);
